@@ -1,0 +1,73 @@
+h1 {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+#nResults {
+    text-align: center;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#navigation {
+    text-align: center;
+    padding-top: 20px; /* 添加上方留白 */
+}
+
+h1 {
+    width: 50%;
+    margin: 0 auto; /*将标题水平居中 */
+    /* margin-top: 100px; */
+}
+
+#queryBox {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    margin: 0 auto; /* 搜索框居中 */
+    padding-top: 20px; /* 添加上方留白 */
+    gap: 20px;
+}
+
+#query {
+    width: 100%; /* 让搜索框宽度占满父容器 */
+    font-size: 24px;
+    padding: 4px;
+    border: 1px solid lightgray;
+}
+
+#query:focus {
+    border: 1px solid lightblue;
+}
+
+table {
+    width: 80%;
+    margin-top: 24px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: white;
+    width: 50%;
+}
+
+tr {
+    background-color: #ececec;
+}
+
+#searchResults {
+    display: flex;
+    justify-content: center;
+}
