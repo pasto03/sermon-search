@@ -1,3 +1,4 @@
+/* template string shall not be used */ 
 import $ from "jquery";
 
 export function fetchSermonData(getQuery, k) {
@@ -14,7 +15,7 @@ export function fetchSermonData(getQuery, k) {
         success: function (data) {
             $("#sermonTable tbody").empty();
             const sermons = data;
-            console.log(`Sermons: ${sermons}`);
+            console.log("Sermons: " + sermons);
             sermons.forEach((sermon, index) => {
                 // sermon = JSON.parse(sermon);
                 console.log(sermon);
