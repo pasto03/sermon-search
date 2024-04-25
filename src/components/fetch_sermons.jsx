@@ -3,7 +3,7 @@ import $ from "jquery";
 export function fetchSermonData(getQuery, k) {
     $.ajax({
         type: "POST",
-        url: "/search",
+        url: "https://sermon-search-api.onrender.com/search",
         contentType: 'application/json',
         data: JSON.stringify({ query: getQuery, k: k }),
         success: function (data) {
