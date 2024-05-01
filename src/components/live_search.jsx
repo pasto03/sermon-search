@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
-import { fetchSermonData } from "./fetch_sermons";
+import { fetchSermonData } from "./fetch_sermon_data.jsx";
+// import { fetchSermon } from "./fetch_sermons.mjs";
 
 
 export default function LiveSearch() {
@@ -23,10 +24,10 @@ export default function LiveSearch() {
 
 
     return <div className="main-container">
-        <div id="navigation">
+        <div className="navigation">
             <h1>Sermon Video Live Search</h1>
-            <div id="queryBox">
-                <input type="text" id="query" placeholder="Search.." onKeyUp={(event) => { keyupHandler(event.target.value) }} />
+            <div className="query-box">
+                <input type="text" id="query" placeholder="Enter any keyword..." onKeyUp={(event) => { keyupHandler(event.target.value) }} />
                 <select name="nResults" id="nResults" onChange={(event) => { nResultsHandler(event.target.value) }}>
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -35,8 +36,8 @@ export default function LiveSearch() {
                 </select>
             </div>
 
-            <div id="searchResults">
-                <table id="sermonTable">
+            <div className="searchResults">
+                <table className="sermonTable">
                     <thead>
                         <tr>
                             <th>Title</th>
