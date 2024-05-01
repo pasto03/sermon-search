@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
-// import { fetchSermonData } from "./fetch_sermon_data.jsx";
-import { fetchSermon } from "./fetch_sermons.mjs";
-
+import { fetchSermonData } from "./fetch_sermons.jsx";
 
 export default function LiveSearch() {
     const [query, setQuery] = useState("");
