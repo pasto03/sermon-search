@@ -4,7 +4,7 @@ import $ from "jquery";
 export function fetchSermonData(getQuery, k) {
     $.ajax({
         type: "POST",
-        url: "https://sermon-search-api.onrender.com/search",
+        url: "https://sermon-search-api.onrender.com/api/sermon/search",
         headers: {
             "Content-type": "application/json; charset=UTF-8",
             "Access-Control-Allow-Origin": "*",
