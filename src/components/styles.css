@@ -1,10 +1,11 @@
 * {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, Geneva, Tahoma, sans-serif;
 }
 
 :root {
     --search-height: 34px;
-    --table-radius: 14px;
+    --table-radius: 10px;
 }
 
 .main-container,
@@ -52,45 +53,50 @@
 #query:focus,
 #nResults:focus {
     outline: none;
-    box-shadow: 0 4px 8px 0 rgba(0, 98, 255, 0.1), 0 1px 10px 0 rgba(0, 98, 255, 0.1);
+    box-shadow: 0 4px 8px 0 rgba(0, 98, 255, 0.1),
+        0 1px 10px 0 rgba(0, 98, 255, 0.1);
 }
-
 
 .searchResults {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin: 25px;
+    height: 500px;
     overflow: hidden;
-    height: 540px;
     overflow-y: scroll;
+    border-radius: var(--table-radius) var(--table-radius) 0 0;
+    /* background-color: white; */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.searchResults::-webkit-scrollbar {
+/* .searchResults::-webkit-scrollbar {
     display: none;
-}
+} */
 
 /* Hide scrollbar for IE, Edge and Firefox */
+
 .searchResults {
-    -ms-overflow-style: none;
+    /* -ms-overflow-style: none; */
     /* IE and Edge */
-    scrollbar-width: none;
+    /* scrollbar-width: none; */
     /* Firefox */
 }
 
 table {
     border-collapse: collapse;
     width: 75%;
-    overflow-x: auto;
-    overflow-y: hidden;
+    /* overflow-x: auto;
+  overflow-y: hidden; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: var(--table-radius);
+    border-top-right-radius: var(--table-radius);
 }
 
 th,
 td {
     text-align: center;
     padding: 12px;
-
 }
 
 tr:nth-child(even) {
@@ -99,6 +105,10 @@ tr:nth-child(even) {
 
 tr {
     border-radius: 16px;
+}
+
+tbody>tr:hover {
+    background-color: rgba(0, 136, 255, 0.268);
 }
 
 thead {

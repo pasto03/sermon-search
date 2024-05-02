@@ -13,7 +13,7 @@ export function fetchSermonData(getQuery, k) {
         contentType: 'application/json',
         data: JSON.stringify({ query: getQuery, k: k }),
         success: function (data) {
-            $("#sermonTable tbody").empty();
+            $(".sermonTable tbody").empty();
             const sermons = data;
             console.log("Sermons: " + sermons);
             sermons.forEach((sermon, index) => {
@@ -25,7 +25,7 @@ export function fetchSermonData(getQuery, k) {
                 const thumbnail = sermon.thumbnail;
                 // const videoUrl = "https://www.youtube.com/watch?v=" + sermon.videoID
                 const url = sermon.url;
-                $("#sermonTable tbody").append(
+                $(".sermonTable tbody").append(
                     `<tr>
                     <td>${title}</td>
                     <td>${desc}</td>
