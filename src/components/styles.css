@@ -58,7 +58,7 @@
 }
 
 .searchResults {
-    width: 100%;
+    width: 70%;
     display: flex;
     justify-content: center;
     margin: 25px;
@@ -85,7 +85,7 @@
 
 table {
     border-collapse: collapse;
-    width: 75%;
+    width: 100%;
     /* overflow-x: auto;
   overflow-y: hidden; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -133,3 +133,21 @@ th:last-child {
 img {
     padding: 8px;
 }
+
+.floating-icon {
+    background-color: rgb(243, 242, 242);
+    padding: 1rem;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    /* width: 28px; */
+    /* height: 28px; */
+    z-index: 1000; /* 确保图标位于其他内容之上 */
+    cursor: pointer;
+    /* border: 1px black solid; */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+  }
+  
+

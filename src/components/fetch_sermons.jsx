@@ -18,7 +18,7 @@ export function fetchSermonData(getQuery, k) {
             console.log("Sermons: " + sermons);
             sermons.forEach((sermon, index) => {
                 // sermon = JSON.parse(sermon);
-                console.log(sermon);
+                // console.log(sermon);
                 let title = sermon.title;
                 let desc = sermon.desc.slice(0, 100);
                 if (desc.length > 0) desc += '...';
