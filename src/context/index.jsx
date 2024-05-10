@@ -9,11 +9,17 @@ export default function GlobalState({ children }) {
         {"role": "user", "message": "What's the weather like today?"},
         {"role": "assistant", "message": "The weather is sunny!"},
     ]);
+    const [showSettings, setShowSettings] = useState(false);
+    const [apiKey, setApiKey] = useState("");
 
     return <GlobalContext.Provider
         value={{
             allMessages,
-            setAllMessages
+            setAllMessages,
+            showSettings,
+            setShowSettings,
+            apiKey,
+            setApiKey
         }}
     >{children}</GlobalContext.Provider>
 }

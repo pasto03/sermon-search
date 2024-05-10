@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
-import { fetchSermonData } from "./fetch_sermons.jsx";
-import ChatInterface from "./chat_interface.jsx";
+import { fetchSermonData } from "../../components/fetch_sermons.jsx";
+import ChatInterface from "../../components/chat-interface/chat_interface.jsx";
 
 export default function LiveSearch() {
     const [query, setQuery] = useState("");
@@ -22,33 +22,6 @@ export default function LiveSearch() {
     useEffect(() => {
         fetchSermonData(query, k);
     }, [query, k]);
-
-    async function trafficTracker() {
-        const body = {
-            page: process.env.REACT_APP_PAGE,
-            deltaTraffic: 1,
-            deltaVisitor: 0,
-            accessCode: process.env.REACT_APP_ACCESS_CODE,
-        };
-        const response = await fetch(
-            `${process.env.REACT_APP_SERVER_URL}/api/traffic`,
-            {
-                method: "POST",
-                body: JSON.stringify(body),
-                headers: {
-                    "Content-Type": "Application/json",
-                },
-            }
-        );
-        const data = await response.json();
-        console.log(data);
-    };
-
-    useEffect(() => {
-        if (process.env.REACT_APP_TRAFFIC_MODE === "prod") {
-            trafficTracker();
-        }
-    }, []);
 
     return <div className="main-container">
         <div className="navigation">

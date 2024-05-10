@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 import GlobalState from './context';
+import { BrowserRouter } from 'react-router-dom';
 
 if (process.env.NODE_ENV === 'production') {
   disableReactDevTools();
@@ -12,9 +13,12 @@ if (process.env.NODE_ENV === 'production') {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <GlobalState>
-    <App />
-  </GlobalState>
+  <BrowserRouter>
+    <GlobalState>
+      <App />
+    </GlobalState>
+  </BrowserRouter>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
