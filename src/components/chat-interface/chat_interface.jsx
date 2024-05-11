@@ -29,7 +29,7 @@ export default function ChatInterface({ isOnline }) {
         if (isChatOpen) {
             scrollToBottom();
         }
-    }, [allMessages]); // Scroll to bottom whenever allMessages changes
+    }, [allMessages, showSettings]); // Scroll to bottom whenever allMessages changes
 
     const toggleChat = () => {
         setIsChatOpen(!isChatOpen);
@@ -40,7 +40,7 @@ export default function ChatInterface({ isOnline }) {
 
     function keyupHandler(userMessage) {
         setMessage(userMessage);
-        console.log(userMessage);
+        // console.log(userMessage);
     }
 
     function keyDownHandler(event) {
@@ -54,7 +54,7 @@ export default function ChatInterface({ isOnline }) {
         console.log(`User Message: ${message}`);
         const userMessage = { role: "user", message: message };
         setAllMessages([...allMessages, userMessage]);
-        setMessage("");
+        // setMessage("");
         document.getElementById("message").value = "";
         setPending(true);
     }
@@ -64,17 +64,100 @@ export default function ChatInterface({ isOnline }) {
         setShowSettings(false);
     }
 
-    console.log(apiKey);
+    // console.log(apiKey);
 
-    function getDummyResponse() {
-        const dummyResponse = { role: "assistant", message: "Dummy Response" };
-        setAllMessages([...allMessages, dummyResponse]);
-        setPending(false);
+    function updateChatMessage(content = "") {
+        setAllMessages(allMessages => {
+            const updatedMessages = [...allMessages];
+            updatedMessages[updatedMessages.length - 1].message += content;
+            return updatedMessages;
+        });
+    }
+
+    async function validateKey() {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/chat/validate_credentials`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`
+            },
+        });
+
+        const data = await response.json();
+        return data;
+    }
+
+    async function chat() {
+        try {
+            const chatMessage = { role: "assistant", message: "" };
+            setAllMessages([...allMessages, chatMessage]);
+            const validKey = await validateKey();
+            const validity = validKey.validity
+            // console.log(`Key validity: ${validity}`);
+            if (!validity) {
+                updateChatMessage("Please setup valid OPENAI API KEY to proceed.");
+                setPending(false);
+                setMessage("");
+                return;
+            }
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/chat`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+                    "Authorization": `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    message: message,
+                }),
+            });
+            async function streamToString(body) {
+                // setAllMessages(allMessages => {
+                //     const updatedMessages = [...allMessages];
+                //     updatedMessages[updatedMessages.length - 1].message = ""; // Clear previous message
+                //     return updatedMessages;
+                // });
+                updateChatMessage("");
+                const reader = body?.pipeThrough(new TextDecoderStream()).getReader();
+                while (reader) {
+                    let stream = await reader.read();
+                    // console.log("the stream", stream);
+                    if (stream.done) break;
+                    const chunks = stream.value
+                        .replaceAll(/^data: /gm, "")
+                        .split("\n")
+                        .filter((c) => Boolean(c.length) && c !== "[DONE]")
+                        .map((c) => JSON.parse(c));
+                    if (chunks) {
+                        for (const chunk of chunks) {
+                            const content = chunk.choices[0].delta.content;
+                            if (!content) continue;
+                            // chatMessage.message += content;
+                            // setAllMessages(allMessages => {
+                            //     const updatedMessages = [...allMessages];
+                            //     updatedMessages[updatedMessages.length - 1].message += content;
+                            //     return updatedMessages;
+                            // });
+                            updateChatMessage(content);
+                        }
+                    }
+                }
+                // console.log(`Complete response message: ${chatMessage}`);
+            }
+            streamToString(response.body);
+            setPending(false);
+            setMessage("");
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     useEffect(() => {
         if (pending) {
-            getDummyResponse();
+            // getDummyResponse();
+            chat();
         }
 
     }, [pending])
@@ -133,7 +216,7 @@ export default function ChatInterface({ isOnline }) {
                                 value={apiKey}
                                 onMouseEnter={() => setVisible(true)}
                                 onMouseLeave={() => setVisible(false)}
-                                onChange={(event) => {setApiKey(event.target.value)}}
+                                onChange={(event) => { setApiKey(event.target.value) }}
                             ></input>
                             <button onClick={handleSettingSubmit}>Save Changes</button>
                         </div>
